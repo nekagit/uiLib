@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 300 300" width="50" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>mediaevent.de Home – HTML, CSS und Javascript</title>
+	<path id="m1" d="M 134 3 C 115.5 3 95 16 88.5 36 C 83 53.7 83 70 83 70 C 83 70 52 58.7 24.6 90 C -5 123 13 178 13 178 L 59 226.4 L 90 196 L 37 143.4 C 37 143.4 35.5 134 43 124.4 C 54 111 63.2 105 80 121.4 C 89.27 130.8 106.5 148 121.8 163.7 L 153 132.4 L 101 80 C 101 80 99 71 107 61 C 117.6 47.7 127 41.5 143.4 58 C 152.8 67.55 170 85 185 100.3 L 216.2 69.3 C 200 53 174 27 156.4 11 C 150.5 5.4 142.5 3 134 3 z "></path><use xlink:href="#m1" fill="hsl(180,60%,40%)"></use>
+	<use transform="translate(280,300) rotate(180)" xlink:href="#m1" fill="hsl(180,60%,65%)"></use>
+</svg>

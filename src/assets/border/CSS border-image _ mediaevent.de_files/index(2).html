@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!-- saved from url=(0070)https://s0.2mdn.net/sadbundle/8241612092385896224/index.html?ev=01_250 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>AdBanner</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="ad.size" content="width=728,height=90">
+<script src="./createjs_2019.11.15_min.js"></script>
+<style>
+	html, body {margin:0;padding:0;}
+	body {width:728px;height:90px;background-color:#fff;cursor:pointer;}
+	a, #wrapper { position: absolute;left: 0;top: 0;width: 728px;height: 90px;display:block;z-index:8;}
+	a {text-decoration:none;color:#000;}
+	#HoverArea {position:absolute;font-family: Verdana, sans-serif;font-size: 0.6rem;color:#000;z-index:2002;}
+	#LegaltextContainer, #legaltext {position:absolute;box-sizing:border-box;top:0;left:0;width:100%;height:100%;background-color:#fff;
+	   font-family: Verdana, sans-serif;font-size:8pt;line-height:11pt;opacity:0;z-index:9;}
+	#legaltext {overflow:hidden;opacity:1;}
+	#LT {padding:0 6px 6px 9px}
+	.scrollUp {animation-name: ScrollUp;animation-duration:10s;animation-delay:5s;animation-fill-mode:forwards;
+	   -webkit-animation-iteration-count:1;animation-iteration-count:1;transition-timing-function:linear;
+	   -webkit-transition-timing-function:linear;animation-timing-function:linear;
+	}
+	@keyframes ScrollUp {
+	  0%    {transform: translateY(0%)}    
+	  100%  {transform: translateY(calc(-100% + 90px - 12px))}  
+	}
+	.border {position:absolute;background-color:#666; z-index:102;}
+	.bt {top:0;width:100%;height:1px;}
+	.bb {bottom:0;width:100%;height:1px;}
+	.bl {left:0;height:100%;width:1px;}
+	.br {top:0;right:0;height:100%;width:1px;}
+</style>
+<script type="text/javascript">var clickTag = "";</script>
+<script type="text/javascript">
+	function activateHover() {}; function deactivateHover() {}
+</script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function startAnimate() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("06EF2C699C7C49AA9BE50C882873282C");
+	var lib=comp.getLibrary();
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt, comp) {
+	var images=comp.getImages();	
+	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt,comp) {
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib._728x90();
+	stage = new lib.Stage(canvas);	
+	ad = new createjs.AdHelper(stage).setSleep(99999)
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.framerate = lib.properties.fps;
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	AdobeAn.makeResponsive(false,'both',false,1,[canvas,anim_container,dom_overlay_container]);
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+</script>
+<script type="text/javascript">
+    
+  (function() {
+    var MAX_URL_PARAM_LENGTH = 34;
+    var CLICK_X_URL_KEY = 'nx';
+    var CLICK_Y_URL_KEY = 'ny';
+    var CREATIVE_DIMENSIONS_KEY = 'dim';
+    var AD_URL_PARAM = '&adurl=';
+
+    var relegateNavigation = '';
+    var urlParamMap = {};
+
+    var isNewtonTokenSet = false;
+    var isTurtleXAdClick = false;
+    var reportingIds = {};
+
+    urlParamMap[CLICK_X_URL_KEY] = null;
+    urlParamMap[CLICK_Y_URL_KEY] = null;
+    urlParamMap[CREATIVE_DIMENSIONS_KEY] = null;
+
+    var handleClickTagMessage = function(e) {
+      try {
+        var eventData = JSON.parse(e.data);
+      } catch (err) {
+        return;
+      }
+      if (eventData.isInitClickTag) {
+        if (eventData.clickTags) {
+          for (var i = 0; i < eventData.clickTags.length; i++) {
+            var clkTag = eventData.clickTags[i];
+            window[clkTag.name] = clkTag.url;
+
+            if (clkTag.eTldPlusOne) {
+              eTldPlusOnes[clkTag.url] = clkTag.eTldPlusOne;
+            }
+            if (clkTag.reportingId) {
+              reportingIds[clkTag.url] = clkTag.reportingId;
+            }
+          }
+        } else if (eventData.clickTag) {
+          window.clickTag = eventData.clickTag;
+        }
+        relegateNavigation = eventData.relegateNavigation;
+      }
+      if (isNewtonEnabled(eventData) && !isNewtonTokenSet) {
+        var newtonOt2Token = eventData.newtonOt2Token;
+        enableAttributionReportingApi(newtonOt2Token);
+      }
+      if (eventData.isTurtleXAdClick) {
+        isTurtleXAdClick = true;
+      }
+    };
+
+    var isNewtonEnabled = function(eventData) {
+      return 'newtonOt2Token' in eventData;
+    }
+
+    var enableAttributionReportingApi = function(originTrialToken) {
+      if (/Chrome/.test(window.navigator.userAgent)) {
+        var meta = document.createElement('meta');
+        meta.httpEquiv = 'origin-trial';
+        meta.content = String(originTrialToken);
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        isNewtonTokenSet = true;
+      }
+    };
+
+    var storeClickCoordinates = function(e) {
+      urlParamMap[CLICK_X_URL_KEY] = Math.round(e.clientX);
+      urlParamMap[CLICK_Y_URL_KEY] = Math.round(e.clientY);
+    };
+
+    var getCreativeDimensions = function() {
+      return window.innerWidth + 'x' + window.innerHeight;
+    }
+
+    var getExitClickParams = function(e) {
+      urlParamMap[CREATIVE_DIMENSIONS_KEY] = getCreativeDimensions();
+
+      var exitParams = '';
+      for (var key in urlParamMap) {
+        exitParams += '&' + key + '=';
+        if (urlParamMap[key] !== null) {
+          exitParams += urlParamMap[key];
+        }
+      }
+      return exitParams;
+    }
+
+    var appendExitClickParams = function(url) {
+      var adUrlIndex = url.toLowerCase().indexOf(AD_URL_PARAM);
+      var paramsToBeAdded = getExitClickParams();
+      if (adUrlIndex > -1 && paramsToBeAdded.length <= MAX_URL_PARAM_LENGTH) {
+        url = url.substr(0, adUrlIndex) + paramsToBeAdded +
+          url.substr(adUrlIndex);
+      };
+      return url;
+    };
+
+    if (open.call) {
+      window.open = function(open) {
+        return function(url, name, features) {
+          if (isTurtleXAdClick && !!reportingIds[url]) {
+            var message = {
+              'reportingId': reportingIds[url],
+              'clickX': urlParamMap[CLICK_X_URL_KEY],
+              'clickY': urlParamMap[CLICK_Y_URL_KEY],
+              'creativeDims': getCreativeDimensions()
+              };
+            parent.postMessage(JSON.stringify(message), '*');
+          }
+          url = appendExitClickParams(url);
+          if (relegateNavigation === 'parent') {
+            var message = {'clickTag': url, 'isPostClickTag': true};
+            parent.postMessage(JSON.stringify(message), '*');
+          } else {
+            var args = [url, name];
+            var windowFeatures = '';
+
+            if (features) {
+              windowFeatures = windowFeatures.concat(features);
+            }
+            if (isNewtonTokenSet &&
+                !!document.featurePolicy?.allowedFeatures().includes(
+                  'attribution-reporting')) {
+              if (features) {
+                if (!features.includes('attributionsrc')) {
+                  windowFeatures = windowFeatures.concat(features, ', attributionsrc');
+                }
+              } else {
+                windowFeatures = windowFeatures.concat('attributionsrc');
+              }
+            }
+
+            if (windowFeatures) {
+              args.push(windowFeatures);
+            }
+            open.apply(window,args);
+          }
+        };
+      }(window.open);
+    }
+
+    if (window.addEventListener) {
+      window.addEventListener(
+          'message', handleClickTagMessage, false);
+      window.addEventListener('mousedown', storeClickCoordinates, true);
+    } else {
+      window.attachEvent('onmessage', handleClickTagMessage);
+    }
+  })();
+    
+  </script><meta http-equiv="origin-trial" content="A4AD7vbM2W0e5fHylDM4fFrsUvtmQ95U+ZVrdOdh3fgH0l0e7RVkAsZryrSQIRhPVvmC60wTlh880eDyo+HpXQAAAABueyJvcmlnaW4iOiJodHRwczovL3MwLjJtZG4ubmV0OjQ0MyIsImZlYXR1cmUiOiJQcml2YWN5U2FuZGJveEFkc0FQSXMiLCJleHBpcnkiOjE2OTUxNjc5OTksImlzVGhpcmRQYXJ0eSI6dHJ1ZX0="><script type="text/javascript" src="./index.js"></script></head>
+<body>
+	<a href="javascript:void(window.open(window.clickTag))">
+		<div id="wrapper">
+			<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:728px; height:90px;">
+				<canvas id="canvas" width="728" height="90" style="position: absolute; display: block; background-color: rgb(255, 255, 255); width: 728px; height: 90px;"></canvas>
+				<div id="dom_overlay_container" style="box-sizing:border-box;pointer-events:none; overflow:hidden; width:728px; height:90px; position: absolute; left: 0px; top: 0px; display: block;">
+					<div class="border bt"></div>
+					<div class="border br"></div>
+					<div class="border bb"></div>
+					<div class="border bl"></div>				
+				</div>
+			</div>
+			<div id="LegaltextContainer"><div id="legaltext"><p id="LT"></p></div></div> 
+			<div id="HoverArea"></div>
+		</div>
+	</a>	
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function(event) {
+	    setTimeout(function(){setData();},1000);
+        function setData() {
+          var indexScript = document.createElement("script");
+          indexScript.type = "text/javascript";
+          document.head.appendChild(indexScript);
+          indexScript.src = "index.js";
+          indexScript.onload = () => {
+            var tkeyInclude = Object.keys(AdobeAn.compositions)[0];
+            var tcompInclude = AdobeAn.getComposition(tkeyInclude);
+            var libInclude = tcompInclude.getLibrary();
+            if (
+              (typeof libInclude.yes !== "undefined" &&
+                libInclude.yes !== null &&
+                typeof libInclude.yes === "object") ||
+              typeof libInclude.yes === "function"
+            ) {
+              // Include script and start Animation
+              var scriptElement = document.createElement("script");
+              scriptElement.type = "text/javascript";
+              document.body.appendChild(scriptElement);
+              function setSrc(element, filename) {
+                element.src = filename;
+              }
+              setSrc(scriptElement, "script.js");
+              scriptElement.onload = () => {
+                startAnimate();
+              };
+            } else {
+              // start Animation without script
+              startAnimate();
+            }
+          };
+        }
+      });
+	function goSleep() {window.ad.sleep(0)}
+	this.createjs=this.createjs||{},function(){"use strict";function e(e){this._stage=e,this.tickListener=null,this.awake=!0,this.sleepEnabled=!1,this.hidden=!1,this.pixelRatio=this._getBackingRatio(),this._time=0,this._awake=!0,this._sleepy=!1,this._sleepT=0,this._sleepMousedownT=null,this._sleepInBoundsT=null,this._sleepUseTicks=!1,this._mouseInDoc=!1,this._perfDelay=0,this._perfCount=0,this._perfThreshold=0,this._perfFPS=0,this._width=e.canvas.width,this._height=e.canvas.height,createjs.Ticker.on("tick",this)}var t=e.prototype;createjs.EventDispatcher&&(t=e.prototype=new createjs.EventDispatcher),e.isSupported=function(){return!!window.CanvasRenderingContext2D},e.showAltImage=function(t,i,s,n,h){return e.showAltHTML(t,(s?"<a target='"+(h||"_blank")+"' href='"+s+"'>":"")+"<img src='"+i+"' border='0' alt='"+(n||"")+"'>"+(s?"</a>":""))},e.showAltHTML=function(t,i){var s=document.createElement("div");return s.innerHTML=i||"",s.id="adAlt",e.showAlt(t,s)},e.showAlt=function(e,t){return"string"==typeof e&&(e=document.getElementById(e)),t.style.display="block",e.parentNode.replaceChild(t,e),t},t.timeSync=function(e){var t=void 0!==this._stage.masterFrameRate;if(this._stage.masterFrameRate=e||lib&&lib.properties&&lib.properties.fps||this._getTickerFPS(),t)return this;var i=createjs.Stage.prototype,s=createjs.MovieClip.prototype;return i.__tick=i._tick,i._tick=function(e){e.stage=this,this.__tick(e)},s.__tick=s._tick,s._tick=function(e){!this.ignoreMasterFrameRate&&e.stage&&(this.framerate=e.stage.masterFrameRate||null),this.__tick(e)},this},t.watchFPS=function(e,t){return this._perfFPS=e||.9*this._getTickerFPS()-1|0,this._perfThreshold=t||1,this._perfCount=0,this._perfDelay=5,this},t.highDPI=function(e,t){t=t||1;var i=this._getBackingRatio(),s=Math.max(1,(window.devicePixelRatio||1)/i),n=this._stage,h=n.canvas,a=h.style,r=this._width/t,o=this._height/t;return e===!1&&(s=1/i),h.width=r*s,h.height=o*s,a.width=r+"px",a.height=o+"px",n.scaleX=n.scaleY=s/t,this.pixelRatio=(1===i?s:e===!1?1:i)/t,this},t.setSleep=function(e,t,i,s,n){return null!=t&&stage.addEventListener("stagemousedown",this),null!=i&&(document.addEventListener("mouseout",this,!0),document.addEventListener("mousemove",this,!0)),this.tickListener=n||this._stage,this._sleepMousedownT=t,this._sleepInBoundsT=i,this._sleepUseTicks=!!s,this.sleepEnabled=!0,this._sleepy=!1,this._sleepT=null!=e?this._getTime()+1e3*e:0,this},t.sleep=function(e){return e?void(this._sleepT=this._getTime()+(e||0)):(this._sleepy=!1,this._sleepT=0,this._awake=!1,void this._sleep())},t.wake=function(e){this._sleepy=!1,null!=e?this._sleepT=Math.max(this._sleepT,this._getTime()+(e||0)):this._sleepT=0,this._awake=!0,this._wake()},t.handleEvent=function(e){if("tick"===e.type)this._tick(e);else if("stagemousedown"===e.type){var t=this._sleepMousedownT;this.sleepEnabled&&null!=t&&this.wake(1e3*t)}else"mousemove"===e.type?this._mouseInDoc=!0:"mouseout"===e.type&&(this._mouseInDoc=!1)},t._getTickerFPS=function(){return createjs.Ticker.timingMode==createjs.Ticker.RAF?60:createjs.Ticker.framerate},t._sleep=function(){this.awake&&(createjs.Ticker.paused=!0,this.tickListener&&createjs.Ticker.removeEventListener("tick",this.tickListener),window.TweenLite&&TweenLite.ticker&&TweenLite.ticker.sleep(),this.dispatchEvent("sleep"),this.awake=!1)},t._wake=function(){if(!this.awake){if(createjs.Ticker.paused=!1,this.tickListener&&createjs.Ticker.addEventListener("tick",this.tickListener),window.TweenLite){var e=TweenLite.ticker,t=e.frame;e.frame=1,e.wake(!0),e.frame=t}this.dispatchEvent("wake"),this.awake=!0}},t._tick=function(e){if(document.hidden||document.webkitHidden||document.mozHidden)return this.hidden=!0,this._sleep(),void(createjs.Sound&&(createjs.Sound.muted=!0));this.hidden&&(this.hidden=!1,this._awake&&this._wake(),this._perfDelay=3,createjs.Sound&&(createjs.Sound.muted=!1)),this._time+=this._sleepUseTicks?1:e.delta;var t;if(this._perfFPS&&--this._perfDelay<=0&&(t=createjs.Ticker.getMeasuredFPS(1))>-1){var i=1-Math.max(0,Math.min(1,t/this._perfFPS));this._perfCount=Math.max(0,this._perfCount+(0===i?-.2:i*i*.5+.1)),this._perfCount>this._perfThreshold&&(this._perfFPS=0,this.dispatchEvent(new createjs.Event("slow",!1,!0))&&(this.sleep(),this.sleepEnabled=!1))}this.sleepEnabled&&(null!=this._sleepInBoundsT&&this._stage.mouseInBounds&&this._mouseInDoc&&this.wake(1e3*this._sleepInBoundsT),this._sleepy?this.sleep():this._sleepT&&this._getTime()>=this._sleepT&&(this._sleepy=!0))},t._getTime=function(){return this._time},t._getBackingRatio=function(){var e=this._stage.canvas.getContext("2d");return e.backingStorePixelRatio||e.webkitBackingStorePixelRatio||e.mozBackingStorePixelRatio||e.msBackingStorePixelRatio||e.oBackingStorePixelRatio||1},createjs.AdHelper=e}();
+</script>
+
+<div id="preloadjs-container" style="visibility: hidden; position: absolute; height: 10px; width: 10px; overflow: hidden; transform: translate(-10px, -10px);"></div></body></html>
