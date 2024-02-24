@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import Stars from '@/components/ui/background/Stars.vue';
 import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <main class="grid h-screen m-auto">
+  <main >
 
       <RouterView />
   
   </main>
-  <Stars />
 </template>
