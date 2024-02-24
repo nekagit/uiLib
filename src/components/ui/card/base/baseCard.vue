@@ -25,13 +25,13 @@ const images = ref([
   border: 30px solid white;
   border-image: url('../../../../assets/border/border-edge-nine.svg');
   border-image-slice: 33%;
-  background-color: rgb(36, 36, 36);
+  background-color: rgb(206, 206, 206);
   border-radius: 100px;
   transition: all .5s ease-in-out;
 }
 
 .jumboTron:hover {
-  background-color: rgb(36, 36, 36);
+  background-color: rgb(32, 32, 32);
 }
 
 img {
