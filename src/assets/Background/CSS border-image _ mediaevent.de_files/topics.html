@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)https://hb.360yield.com/privacy-sandbox/topics.html?bidder=improvedigital -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>ImproveDigital Topics API</title>
+  
+  <script type="text/javascript">
+    async function getTopics() {
+      try {
+        if (
+          'browsingTopics' in document &&
+          document.featurePolicy.allowsFeature('browsing-topics')
+        ) {
+          const topics = await document.browsingTopics();
+          console.log(
+            'Topics IFRAME:', window.location.href,
+            '\nTopics:', topics,
+            '\nNumber of topics:', topics.length,
+          );
+          return topics;
+        }
+        else {
+          console.log('document.browsingTopics() not supported');
+        }
+      }
+      catch (e) {
+        console.error(e);
+      }
+    }
+
+    (async function() {
+      const topics = await getTopics();
+      const message = JSON.stringify({
+        segment: {
+          domain: '360yield.com',
+          bidder: 'improvedigital',
+          topics,
+        },
+        date: Date.now(),
+      });
+      console.log('Message:', message);
+      window.parent.postMessage(message, '*');
+    })();
+  </script>
+</head>
+
+<body>
+
+
+
+</body></html>

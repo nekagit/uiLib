@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://pa.openx.net/topics_frame.html?bidder=openx -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Topics API</title>
+  
+<script>
+  async function getTopics() {
+    try {
+      if (
+        "browsingTopics" in document &&
+        document.featurePolicy.allowsFeature("browsing-topics")
+      ) {
+        const topics = await document.browsingTopics();
+        console.log(
+          "Called iframe:",
+          window.location.hostname,
+          topics,
+          "\nNumber of topics: ",
+          topics.length
+        );
+        return Promise.resolve(topics);
+      } else {
+        console.log("document.browsingTopics() not supported");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  }
+
+  (async function () {
+    const topics = await getTopics();
+    const message = JSON.stringify({
+      segment: {
+        domain: window.location.hostname,
+        topics,
+        bidder: "openx",
+      },
+      date: Date.now(),
+    });
+    window.parent.postMessage(message, "*");
+  })();
+</script></head>
+
+
+
+<body>
+
+
+
+</body></html>

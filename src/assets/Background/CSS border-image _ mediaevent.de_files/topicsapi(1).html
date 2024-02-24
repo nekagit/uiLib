@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)https://topics.authorizedvault.com/topicsapi.html?bidder=rtbhouse -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Topics API</title>
+  
+  <meta http-equiv="origin-trial" content="AoxoanON0mg6Enu/JtYIzGiAfZryJyYm13rXY61G4Jb9DHFzvnhz5SP5/BvNsqK/BLcl1F+TimdVueCR/pO7BQUAAAB1eyJvcmlnaW4iOiJodHRwczovL2F1dGhvcml6ZWR2YXVsdC5jb206NDQzIiwiZmVhdHVyZSI6IlByaXZhY3lTYW5kYm94QWRzQVBJcyIsImV4cGlyeSI6MTY5NTE2Nzk5OSwiaXNTdWJkb21haW4iOnRydWV9">
+  
+</head>
+
+<body>
+  <script>
+    async function getTopics() {
+      try {
+        if (
+          "browsingTopics" in document &&
+          document.featurePolicy.allowsFeature("browsing-topics")
+        ) {
+          const topics = await document.browsingTopics();
+          console.log(
+            "Called iframe:",
+            window.location.hostname,
+            topics,
+            "\nNumber of topics: ",
+            topics.length
+          );
+          return Promise.resolve(topics);
+        } else {
+          console.log("document.browsingTopics() not supported");
+        }
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    }
+
+    (async function () {
+      const topics = await getTopics();
+      const message = JSON.stringify({
+        segment: {
+          domain: window.location.hostname,
+          topics,
+          bidder: "rtbhouse",
+        },
+        date: Date.now(),
+      });
+      window.parent.postMessage(message, "*");
+    })();
+  </script>
+
+
+</body></html>
