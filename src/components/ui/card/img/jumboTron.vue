@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import ref from "vue"
-const images = ref({
-  first: "https://learning-zone.github.io/website-templates/above-educational-bootstrap-responsive-template/img/slides/1.jpg",
-  second: "../../../../assets/border/border-edge-nine.svg",
-  third: "https://learning-zone.github.io/website-templates/above-educational-bootstrap-responsive-template/img/slides/1.jpg",
-  fourth: "../../../../assets/border/border-edge-nine.svg",
-  fifth: "https://learning-zone.github.io/website-templates/above-educational-bootstrap-responsive-template/img/slides/1.jpg"
-})
+import { ref } from 'vue'
+const images = ref([
+  "https://learning-zone.github.io/website-templates/above-educational-bootstrap-responsive-template/img/slides/1.jpg",
+   "../../../../assets/border/border-edge-nine.svg",
+   "https://learning-zone.github.io/website-templates/above-educational-bootstrap-responsive-template/img/slides/1.jpg",
+   "../../../../assets/border/border-edge-nine.svg",
+   "https://learning-zone.github.io/website-templates/above-educational-bootstrap-responsive-template/img/slides/1.jpg"
+])
 </script>
 <template>
   <section class="jumboTron">
-    <div :v-for="img in images">
-    <img :src="img" alt="asdf" />
-    </div>
+    <!-- <div v-for="img in images" :key="img"> -->
+      
+    <img :src="images[0]" alt="asdf" />
+    <!-- </div> -->
   </section>
 </template>
 <style scoped>

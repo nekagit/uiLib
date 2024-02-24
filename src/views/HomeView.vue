@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import JumboTron from '@/components/ui/card/img/jumboTron.vue';
+import BaseCard from '@/components/ui/card/base/baseCard.vue';
 </script>
 <template>
   <main class="site">
     <section class="mainSection">
-      <JumboTron />
+      <BaseCard />
     </section>
   </main>
 </template>
