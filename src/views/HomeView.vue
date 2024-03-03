@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import BaseCard from '@/components/ui/card/base/baseCard.vue';
+import ChatBot from "@/views/ChatBot.vue";
 </script>
 <template>
   <main class="site">
     <section class="mainSection">
-      <BaseCard />
+      <ChatBot />
     </section>
   </main>
 </template>
@@ -15,7 +15,7 @@ import BaseCard from '@/components/ui/card/base/baseCard.vue';
   left: 0;
   width: 95%;
   height: 95vh;
-  background-color: antiquewhite;
+  background-color: black ;
 }
 
 .mainSection {

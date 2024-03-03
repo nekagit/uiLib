@@ -1,42 +1,46 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-const images = ref([
-  'https://learning-zone.github.io/website-templates/above-educational-bootstrap-responsive-template/img/slides/1.jpg',
-  '../../../../assets/border/border-edge-nine.svg',
-  'https://learning-zone.github.io/website-templates/above-educational-bootstrap-responsive-template/img/slides/1.jpg',
-  '../../../../assets/border/border-edge-nine.svg',
-  'https://learning-zone.github.io/website-templates/above-educational-bootstrap-responsive-template/img/slides/1.jpg'
-])
-</script>
+<script setup lang="ts"></script>
 <template>
-  <section class="jumboTron">
-    <!-- <div v-for="img in images" :key="img"> -->
+  <section class="jumboTron mx-auto p-2 w-full h-auto">
+    <main class="mainSection">
 
-    <img :src="images[0]" alt="asdf" />
-  </section>
+      <nav>
+        Navbar
+        <h3>title</h3>
+        <span>icon</span>
+      </nav>
+      <div>Content</div>
+      
+      <footer>footer</footer>
+    </main>
+
+</section>
 </template>
 <style scoped>
 .jumboTron {
-  margin: auto;
-  padding: 1rem;
-  width: 100%;
-  height: auto;
+  width: 10px;
   min-height: 300px;
-  border: 30px solid white;
-  border-image: url('../../../../assets/border/border-edge-nine.svg');
-  border-image-slice: 33%;
-  background-color: rgb(206, 206, 206);
-  border-radius: 100px;
-  transition: all .5s ease-in-out;
+  color: white;
+  background-color: rgba(255, 0, 0, 0.333);
+  border: 1px solid white;
+  transition: all 1s ease-in-out;
 }
 
 .jumboTron:hover {
-  background-color: rgb(32, 32, 32);
+  color: black;
+  background-color: white;
+  border: 30px solid white;
+  border-image: url('../../../../assets/border/border-edge-nine.svg');
+  border-image-slice: 33%;
+  width: 99%;
 }
+.mainSection {
+  display: none;
+  color: black;
 
-img {
-  width: 100%;
-  background-repeat: no-repeat;
-  background-size: contain;
+}
+.mainSection:hover {
+  display: block;
+  color: black;
+
 }
 </style>
