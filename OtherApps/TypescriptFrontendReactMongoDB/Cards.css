@@ -1,0 +1,184 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.card {
+    width: 150px;
+    max-width: 90%;
+    background-size: cover;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 2rem;
+    margin: 0 10px;
+    display: flex;
+    align-items: flex-end;
+    transition: 1.9s cubic-bezier(.28,-0.03,0,.99);
+    box-shadow: 0px 10px 30px -5px rgba(0,0,0,0.8);
+}
+
+.card > .column {
+    color: black;
+    font-weight: bold;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.card > .column > .icon {
+    background: #223;
+    color: white;
+    border-radius: 50%;
+    width: 88px;
+    height: 88px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 15px;
+    font-size: 13pt;
+}
+
+.card > .column > .description {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    overflow: hidden;
+    height: 80px;
+    width: 520px;
+    opacity: 0;
+    margin:auto;
+    transform: translateX(30px);
+    transition-delay: .3s;
+    transition: all .3s ease;
+}
+
+.description {
+    color: #b0b0ba;
+    display: flex;
+    flex-direction:row;
+}
+
+
+.description p {
+    color: #b0b0ba;
+    padding-top: 5px;
+}
+
+.description h4 {
+    text-transform: uppercase;
+}
+
+input {
+    display: none;
+}
+input:checked + label {
+    width: 100%;
+}
+
+button {
+    padding:1rem;
+}
+
+/* CSS */
+.button-30 {
+  align-items: center;
+  appearance: none;
+  background-color: #FCFCFD;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395A;
+  cursor: pointer;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.button-30:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.button-30:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-30:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+/* Media query for iPhone */
+@media only screen and (max-width: 767px) {
+  input:checked + label {
+    width: 100%;
+}
+
+
+}
+
+/* Media query for tablet */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+input:checked + label {
+    width: 100%;
+}
+}
+
+/* Media query for PC */
+@media only screen and (min-width: 1024px) {
+ 
+input:checked + label {
+    width: 100%;
+}
+
+}
+
+
+input:checked + label .description {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+}
+
+.card[for="c1"] {
+    background-image: url('../src/assets/school0.jpg');
+}
+.card[for="c2"] {
+    background-image: url('../src/assets/school1.jpg');
+}
+.card[for="c3"] {
+    background-image: url('../src/assets/school3.jpg');
+}
+.card[for="c4"] {
+    background-image: url('../src/assets/sport0.jpg');
+}

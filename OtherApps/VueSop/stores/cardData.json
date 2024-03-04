@@ -1,0 +1,79 @@
+{
+  "allCards": [
+    {
+      "title": "Stichting SOP Rotterdam",
+      "description": "School Sports & more Activity",
+      "cardPic": "src/assets/logoo.png",
+      "active": false,
+      "main": false,
+      "color": "rgba(58, 110, 241)",
+      "sectionHeaders": [
+        {
+          "title": "Sponsors",
+          "img": "src/assets/logoo.png",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "title": "SOP School",
+      "description": "Classes about serbian language, history and more",
+      "active": false,
+      "main": false,
+      "cardPic": "src/assets/schoolCard.png",
+      "color": "rgba(58, 110, 241)",
+      "sectionHeaders": [
+        {
+          "title": "Nastava",
+          "img": "src/assets/school1.png",
+          "description": "asdfasdfsadfsa"
+        }
+      ]
+    },
+    {
+      "title": "SOP Sports",
+      "active": false,
+      "main": false,
+      "description": "Sport events and courses in offer!",
+      "cardPic": "src/assets/sportCard.png",
+      "color": "rgba(58, 110, 241)",
+      "sectionHeaders": [
+        {
+          "title": "Sportske Dane",
+          "img": "src/assets/sport1.png",
+          "description": "asdfasdfsadfsa"
+        }
+      ]
+    },
+    {
+      "title": "Gallery",
+      "description": "We offer information about serbian schooling and Rotterdam Sport Days",
+      "active": false,
+      "main": false,
+      "cardPic": "src/assets/galleryPic.png",
+      "color": "rgba(58, 110, 241)",
+      "sectionHeaders": [
+        {
+          "title": "Sponsors",
+          "img": "src/assets/gallery1.png",
+          "description": "asdfasdfsadfsa"
+        }
+      ]
+    },
+    {
+      "title": "Contact",
+      "description": "We offer information about serbian schooling and Rotterdam Sport Days",
+      "active": false,
+      "main": false,
+      "cardPic": "src/assets/logoo.png",
+      "color": "rgba(58, 110, 241)",
+      "sectionHeaders": [
+        {
+          "title": "Sponsors",
+          "img": "src/assets/logoo.png",
+          "description": "asdfasdfsadfsa"
+        }
+      ]
+    }
+  ]
+}

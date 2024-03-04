@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(215deg, #414fc1, #266c74, #000000, #000000);
+  background-size: 800% 800%;
+  animation: backgroundAni 15s ease infinite;
+}
+
+main {
+  overflow: hidden;
+}
+
+nav {
+  position: absolute;
+  width: -moz-fit-content;
+  width: fit-content;
+  left: clamp(33px, 2%, 3%);
+  font-size: "8pt";
+  font-family: "courier";
+  z-index: 999;
+  border-top: 3px solid white;
+  white-space: nowrap;
+  animation: navAni 15s ease infinite;
+}
+
+.homeLogo {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 21%;
+  left: 5%;
+  animation: homeLogoAni 33s ease infinite;
+}
+
+.srbMinistar {
+  max-width: clamp(40px, 90px, 1px);
+  opacity: 0.2;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 1%;
+  left: 3%;
+}
+
+.outletCard {
+  position: absolute;
+  top: 9%;
+  /* border: 1px solid white; */
+  width: clamp(303px, 55%, 60%);
+  height: 80vh;
+  color: rgb(255, 242, 54);
+  font-weight: bold;
+  font-size: 15pt;
+}
+
+.cardHolderWrapper {
+  display:flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.cardHolder {
+  padding: 1vh
+}
+
+.cardBar {
+  display:flex;
+  justify-content: space-evenly;
+}
+
+.activeCardWrapper {
+  /* border:1px solid rgb(255, 0, 0); */
+  width:100%;
+  height:95%;
+}
+
+.activeCard {
+  width: 100%;
+    max-width: 100%;
+    height: 100%;
+    background-size: cover;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 2rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding:3rem;
+    transition: 1.9s cubic-bezier(.28,-0.03,0,.99);
+    box-shadow: 0px 10px 30px -5px rgba(0,0,0,0.8);
+}
+
+
+/* Media query for iPhone */
+@media only screen and (max-width: 767px) {
+  .outletCard {
+    left: 15%;
+  }
+}
+
+/* Media query for tablet */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .outletCard {
+    left: 29%;
+  }
+}
+
+/* Media query for PC */
+@media only screen and (min-width: 1024px) {
+  .outletCard {
+    left: 39%;
+  }
+}
+
+@keyframes backgroundAni {
+  0% {
+    background-position: 53% 0%;
+  }
+  50% {
+    background-position: 48% 100%;
+  }
+  100% {
+    background-position: 53% 0%;
+  }
+}
+@keyframes homeLogoAni {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes navAni {
+  0% {
+    border-top: 3px solid red;
+  }
+  50% {
+    border-top: 3px solid white;
+  }
+  100% {
+    border-top: 3px solid black;
+  }
+}/*# sourceMappingURL=App.css.map */
